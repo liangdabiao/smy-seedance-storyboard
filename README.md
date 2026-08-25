@@ -4,8 +4,6 @@
 
 "上美影"= 上海美术电影制片厂，就是《大闹天宫》《天书奇谭》《九色鹿》那种复古手绘动画的味道——概括的造型、手工感的线条、大片平涂的矿物颜料色。
 
-简单演示：https://www.bilibili.com/video/BV1C7h36JEDR/?vd_source=86926e418c83af75f6850b5546388a79
-
 ---
 
 ## 我能用它做什么？
@@ -164,7 +162,7 @@ vintage Shanghai Animation Film Studio aesthetic, traditional Chinese hand-drawn
 ```
 Seedance video prompt first line (精简版):
 ```
-上美影复古手绘动画风格，水墨线条与纯平涂色块，矿物颜料色（[本剧主色简写]），概括轮廓线，胶片颗粒感，纯2D平涂无阴影无渐变
+上海美术电影制片厂经典手绘动画风格，手绘墨线轮廓，水粉平涂上色、保留颜料笔触与手工感，矿物颜料色（[本剧主色简写]），概括造型，胶片颗粒感，不要3D渲染、不要写实感、不要体积光
 ```
 
 Character differentiation uses distinct color schemes (专属主色) and traditional decorative patterns (专属纹样), plus 怪色点缀 accents (muted red / dusty pink / gold brown, small areas only). Character proportions follow 上美影 rules (adults 5-7 heads tall, children 3-4, beasts exaggerated), NOT the realistic 二八比例. Lighting is expressed as 色块对比 (juxtaposed flat color fields), never as volumetric/soft lighting words.
