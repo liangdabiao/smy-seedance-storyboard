@@ -1,8 +1,11 @@
+
 # smy-seedance-storyboard · 上美影风格短剧生成器
 
 > 一句话：**你给一个故事，它还你一套能直接拿去出图、出视频的上美影短剧制作文档。**
 
 "上美影"= 上海美术电影制片厂，就是《大闹天宫》《天书奇谭》《九色鹿》那种复古手绘动画的味道——概括的造型、手工感的线条、大片平涂的矿物颜料色。
+
+<img width="1280" height="544" alt="smy" src="https://github.com/user-attachments/assets/e6fe79bf-4953-4a85-85e7-97fcb4560690" />
 
 测试效果：https://www.bilibili.com/video/BV1MhhG68EBH/?vd_source=86926e418c83af75f6850b5546388a79
 ---
