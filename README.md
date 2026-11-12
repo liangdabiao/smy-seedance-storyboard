@@ -68,6 +68,24 @@
 
 ## 常见问题
 
+**Q：成片里人物一句话都不说，只有环境音，为什么？**
+
+九成是【声音】段写错了。Seedance 2.0 的对白是**原生生成**的（语音 + 口型），台词不进提示词，人物就闭嘴。三种典型死法：
+
+- 写了"只生成音效，不要生成音乐，不要生成字幕" → 对白被一起掐死
+- 台词只写在剧本/分镜文档里，没搬进提示词
+- 台词搬了，但没写"开口说话"，人物闭着嘴说话
+
+正确写法见 `references/分镜优化与声音设计.md` §2.0。开跑前先自检：
+
+```bash
+python scripts/check_prompts.py <项目>/prompts
+```
+
+**Q：需要后期配音吗？**
+
+默认不需要。Seedance 原生出声。后期配音只在对白翻车（吞字、多角色串音、临时改词）时兜底，见 `分镜优化与声音设计.md` §2.7。
+
 **Q：出图变成 3D/有阴影渐变怎么办？**
 检查提示词结尾的两句狠命令是不是被删了；还不行就追加负面词：`不要阴影，不要渐变，不要3D渲染，不要体积光，不要写实照片`。
 
@@ -86,13 +104,15 @@
 smy-seedance-storyboard/
 ├── SKILL.md                      # 主流程（给 AI 看的工作说明书）
 ├── README.md                     # 本文件（给人看的入门指南）
+├── scripts/
+│   └── check_prompts.py          # ★ 对白护栏：跑片前检查每集提示词有没有台词
 └── references/                   # 细则手册（按需查阅）
     ├── 上美影风格指南.md          # ★ 核心：风格块/色盘/造型规范/模板/翻车修复
     ├── seedance-manual.md        # Seedance 2.0 平台手册（含模板十七）
     ├── 好剧本.md                  # 剧本质量标准与示例
     ├── 故事转视频脚本-转换工具.md  # 故事改编模板
     ├── 优化分镜.md                # 提示词优化公式
-    ├── 分镜优化与声音设计.md       # 修图/配音/音效工具指南
+    ├── 分镜优化与声音设计.md       # ★ 原生对白写法（§2.0）/ 修图 / 音效
     └── 上美影原始提示词.txt        # 最初一批实测提示词（溯源用）
 ```
 
@@ -143,7 +163,7 @@ Each episode script contains:
    - 6-9s: Development/conflict
    - 9-12s: Climax/transition
    - 12-15s: Conclusion
-   - Sound design (music + SFX + dialogue)
+   - **Sound design — dialogue is MANDATORY**：`【声音】` 段必须含"人物开口说话"总述 + 逐条台词（时间码 / 说话人 / 语气 / 同期声或画外音 / 逐字台词）。Seedance 2.0 原生生成对白语音与口型，**绝不可写"只生成音效"**——那样每个角色都会闭嘴。开跑前用 `scripts/check_prompts.py` 校验。
    - Asset references (@图片X syntax)
 3. **尾帧描述** - Final frame description for next episode continuity
 
