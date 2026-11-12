@@ -117,9 +117,9 @@ X-X [日/夜] [内/外] [场景名]
 
 | 类别 | 前缀 | 数量要求 |
 |---|---|---|
-| 角色 | C01-C99 | 每角色：标准像（白底站姿）+ 情节海报（可选）+ 四视图 |
+| 角色 | C01-C99 | 每角色：标准像（白底站姿）；四视图与情节海报**可选**，同一角色要跨多集、多角度出现时才出 |
 | 场景 | S01-S99 | 每个重要场景：正打 + 反打 + 侧面全景 |
-| 道具 | P01-P99 | 每个关键道具一张白底单图 |
+| 道具 | P01-P99 | **默认不出图**。道具靠文字描述 + 尺寸参照；只有道具本身要反复特写、怕画走样时才补一张白底单图 |
 | 异兽 | C 编号 | 用异兽场景型模板（风格指南 §五-B），带神性标记 |
 
 ### 5.2 生图提示词
@@ -266,7 +266,58 @@ X-X [日/夜] [内/外] [场景名]
 
 ---
 
-## 九、参考文件
+## 九、执行：把文档变成片子
+
+本 skill 只产出文档。真正出图、出视频，二选一：
+
+**A. 网页手动**：把 `[剧名]_素材清单.md` 每条提示词贴进即梦 / Seedream 出图；把每集 `b. Seedance 提示词` 整段贴进 Seedance，挂上该集 `a. 素材上传列表` 里的参考图，15 秒、9:16。第二集起可用「延长」接上一集。
+
+**B. 命令行（即梦 CLI `dreamina-canvas`）**：先 `auth account` 看余额，每一条都先报价再跑。
+
+```bash
+# 出图：--ratio 与成片同比例（场景/道具），角色 3:4
+dreamina-canvas node create image --model seedream_5.5 --mode t2i \
+  --ratio 9:16 --resolution 2K --count 1 \
+  --prompt "$(cat prompts/S01.txt)" --credit-ceiling 12 --run --wait
+
+# 出视频：参考图先上传，再按 a. 素材上传列表的顺序挂 --ref res:<id>
+dreamina-canvas resource upload --file assets/C01.png --type image
+dreamina-canvas node create video --model seedance_2.0_mini --mode m2v \
+  --ratio 9:16 --resolution 720P --duration 15 --count 1 \
+  --prompt "$(cat prompts/E01.txt)" \
+  --ref res:<C01> --ref res:<S01> --credit-ceiling 120 --run --wait
+
+# 下载成品
+dreamina-canvas resource download <resourceId> -o videos/E01.mp4
+```
+
+换算：Seedream 5.5 图约 6 分/张，Seedance 2.0 mini 15 秒约 90 分/条。**跑之前把批量和总价报给用户，同意再跑。**
+
+拼接：`ffmpeg -f concat -safe 0 -i list.txt -c copy 成片.mp4`（list.txt 里写绝对路径）。
+
+---
+
+## 十、工具脚本（按需调用，不是流程步骤）
+
+`scripts/strip_watermark.py`——擦掉生成素材左上角的「AI生成」水印。只在素材要交付、或水印会被带进下一层生成时才用；不需要就跳过。
+
+```bash
+# 图片：裁掉水印带并按画幅配比（平涂画面补色块比裁掉更显眼，所以用裁）
+python scripts/strip_watermark.py image assets/*.png --aspect 9:16
+
+# 视频：默认 delogo；顶部是留白/天空/纯色墙时用 crop 更干净
+python scripts/strip_watermark.py video videos/E01.mp4 -o videos/E01_clean.mp4
+python scripts/strip_watermark.py video videos/E01.mp4 -o out.mp4 --method crop --aspect 9:16
+
+# 只看会动哪里，不改文件
+python scripts/strip_watermark.py probe assets/S01.png
+```
+
+依赖：图片与 probe 要 Pillow；视频要 ffmpeg（含 ffprobe）。
+
+---
+
+## 十一、参考文件
 
 - `references/上美影风格指南.md`——**风格唯一权威**：风格块、色盘、造型、资产模板、子风格
 - `references/分镜优化与声音设计.md`——原生对白写法、音效、抽帧修补、兜底配音
@@ -274,3 +325,4 @@ X-X [日/夜] [内/外] [场景名]
 - `references/好剧本.md`——剧本质量标准
 - `references/故事转视频脚本-转换工具.md`——故事改编模板
 - `references/优化分镜.md`——分镜提示词优化公式
+- `scripts/strip_watermark.py`——去水印工具（图片裁剪 / 视频 delogo 或裁剪）
