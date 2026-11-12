@@ -1,271 +1,101 @@
-
 # smy-seedance-storyboard · 上美影风格短剧生成器
 
-> 一句话：**你给一个故事，它还你一套能直接拿去出图、出视频的上美影短剧制作文档。**
+> 你给一个故事，它还你一套能直接拿去出图、出视频的上美影短剧制作文档。
 
-"上美影"= 上海美术电影制片厂，就是《大闹天宫》《天书奇谭》《九色鹿》那种复古手绘动画的味道——概括的造型、手工感的线条、大片平涂的矿物颜料色。
+"上美影"= 上海美术电影制片厂，《大闹天宫》《天书奇谭》《九色鹿》那种复古手绘动画——概括的造型、手工感的线条、大片平涂的矿物颜料色。
 
 <img width="1280" height="544" alt="smy" src="https://github.com/user-attachments/assets/e6fe79bf-4953-4a85-85e7-97fcb4560690" />
 
-测试效果：https://www.bilibili.com/video/BV1MhhG68EBH/?vd_source=86926e418c83af75f6850b5546388a79
+测试效果：https://www.bilibili.com/video/BV1MhhG68EBH/
+
 ---
 
-## 我能用它做什么？
+## 交付什么
 
-比如你说：
-
-> "帮我做一个武松打虎的上美影短剧，5 集"
-
-然后它会依次给你五样东西，全部中文、复制就能用：
+说一句"帮我做一个武松打虎的上美影短剧，5 集"，会依次得到：
 
 | 拿到什么 | 干什么用 |
-|----------|----------|
-| ① 剧本 | 5 集×15 秒的分镜剧本，带说书人旁白、台词、字幕卡点 |
-| ② 色盘 | 这部剧专用的颜色清单（如：朱砂红/鎏金/墨黑/青瓷绿），从头用到尾防跑色 |
+|---|---|
+| ① 剧本 | 5 集×15 秒的分镜剧本，带说书人旁白、对白、字幕卡点 |
+| ② 色盘 | 本剧专用颜色清单（如朱砂红/鎏金/墨黑/青瓷绿），全剧逐字引用，防跑色 |
 | ③ 素材清单 | 角色/场景/道具的出图提示词，贴到即梦/Seedream 就能出图 |
-| ④ 每集分镜 | Seedance 2.0 专用提示词（时间轴格式），整段粘贴即可出片 |
-| ⑤ 尾帧说明 | 每集最后一帧的画面描述，下一集接着用，集与集无缝衔接 |
+| ④ 每集分镜 | Seedance 2.0 时间轴提示词，整段粘贴即可出片 |
+| ⑤ 尾帧说明 | 每集最后一帧描述，下一集接着用 |
 
-## 使用流程（三步）
+## 三步流程
 
-**第一步：说人话提需求。** 故事可以是一句话（"做一个夸父逐日"）、一篇小说、一个神话典故，都行。
+1. **说人话提需求**：一句话、一篇小说、一个典故都行。它问你集数与画幅，不想答就说"都用默认"。
+2. **过两道自检再花钱**：
+   - 出图前——画幅同比例、色盘没跑色、角色两个视角、道具写了尺寸；**先只出 3 张**（主角/主场景/关键道具）看过再放量。
+   - 出视频前——一拍不超过两件事、写的是动作不是状态、相邻拍换景别、没写抽象效果、台词六项齐。
+3. **出片拼接**：第一集直接生成，第二集起把上一集视频传上去选"延长"；剪辑软件拼集，对白是模型原生出的，不需要后期配音。
 
-**第二步：回答几个小问题。** 它会问你集数、画幅（竖屏/横屏）、基调。不想答就说"都用默认"。
+## 画风怎么不跑偏
 
-**第三步：照着文档去平台干活。**
-1. 过一遍「出图前自检表」，先出 3 张图看造型 → 对了再放量**出图**（即梦/Seedream/豆包，中文直接用；Midjourney 用清单里的英文对照版）
-2. 过一遍「出视频前自检表」，拿每集分镜去 **Seedance 2.0 出片**（第一集直接生成，第二集起把上一集视频传上去选"延长"）
-3. 剪辑软件拼集，完片（对白是模型原生出的，不需要后期配音）
+三个机关，都别改：
 
-## 画风怎么保证不跑偏？（通俗版）
+1. **固定风格咒语**贴在每条提示词开头：`上美影风格（上海美术电影制片厂复古手绘动画）……`
+2. **结尾两句狠命令**：`必须纯2D平涂！绝对不要阴影、不要渐变、不要3D体积感！必须大面积留白！`
+3. **一部剧一个色盘**，所有提示词逐字引用同一串颜色名。
 
-三个实测有效的机关，**都别改**：
+图片端和视频端配方不同：图片端用完整块 + 咆哮体；视频端首行用精简行（保留手绘肌理，只反 3D/写实/体积光）。细则见 `references/上美影风格指南.md`。
 
-1. **一段固定的"风格咒语"**贴在每条提示词开头：`上美影风格（上海美术电影制片厂复古手绘动画）……`
-2. **结尾两句狠命令**：`必须纯2D平涂！绝对不要阴影、不要渐变、不要3D体积感！必须大面积留白！` —— 没有它，AI 很容易把画面渲染成油画感的"假上美影"（实测踩过坑）
-3. **一部剧一个色盘**，所有提示词逐字引用同一串颜色名，跨集不跑色
+## 换画风
 
-这些已在**生图端和视频端双双实测通过**。
+默认手绘平涂。点名可切（一部剧只用一种）：石蓝淡墨绘本 / 水墨淡彩（小蝌蚪找妈妈）/ 剪纸风（葫芦兄弟）/ 敦煌重彩（九色鹿）。
 
-## 想换个画风？
+## 关键数字
 
-默认是"手绘平涂"主线。点名即可切换（一部剧只用一种）：
+| 项 | 取值 |
+|---|---|
+| 每集时长 | 15 秒 |
+| **时间拍数** | **4 拍**（0-4 / 4-8 / 8-12 / 12-15） |
+| 单拍主要动作 | ≤2 个 |
+| 单拍画面描述 | ≤70 字 |
+| 相邻两拍景别 | 必须不同 |
+| 全集台词 | 25-35 字 |
 
-| 子风格 | 什么味道 | 参照 |
-|--------|----------|------|
-| 石蓝淡墨绘本 | 石蓝+淡墨，疏离怪谈绘本感，怪色点缀 | 新中式绘本 |
-| 水墨淡彩 | 淡雅写意，大量留白 | 小蝌蚪找妈妈 |
-| 剪纸风 | 分层剪影，对称纹样 | 葫芦兄弟 |
-| 敦煌重彩 | 壁画矿物色，飘带飞天 | 九色鹿 |
-
-## 示例项目（照着抄作业）
-
-| 项目 | 类型 | 看点 |
-|------|------|------|
-| `鲁智深醉闹五台山项目/` | 醉闹喜剧 | 打斗慢速夸张、动静对比、说书人旁白 |
-
-项目里包含：剧本、素材清单、E01-E05 分镜、使用指南，四件套齐全。
+按**动作的物理时间**排秒，不按字数排：抓起碟子掼地 ≈2 秒，跪下磕头 ≈2 秒，切一刀 ≈1.5 秒。
 
 ## 常见问题
 
-**Q：成片里人物一句话都不说，只有环境音，为什么？**
+**成片里一句话都不说？**
+对白是 Seedance **原生生成**的（语音+口型），台词不进提示词，人物就闭嘴。检查三点：【声音】段开头有没有"人物开口说话，生成同期对白语音并匹配口型"；下面有没有逐条带时间码的台词；有没有残留"只生成音效"这类写法。
 
-九成是【声音】段写错了。Seedance 2.0 的对白是**原生生成**的（语音 + 口型），台词不进提示词，人物就闭嘴。三种典型死法：
+**片子"不动"，很多镜头一张画停在那里？**
+排太满了。15 秒塞 5 拍、每拍 3-4 个动作，模型一拍只能做完一个，剩下就停住。压到 4 拍、每拍 2 个动作以内。
 
-- 写了"只生成音效，不要生成音乐，不要生成字幕" → 对白被一起掐死
-- 台词只写在剧本/分镜文档里，没搬进提示词
-- 台词搬了，但没写"开口说话"，人物闭着嘴说话
+**写"色块炸开""同心纹荡开"，出来什么都没有？**
+模型画不出抽象效果。必须翻译成位置+颜色+形状+占比：`一道赭色血点溅在青石板上，占画面下三分之一，边缘硬、不渐变`。
 
-正确写法见 `references/分镜优化与声音设计.md` §2.0。开跑前自己扫一眼：每集【声音】段有没有"人物开口说话"这句、下面有没有逐条带时间码的台词、有没有写"只生成音效"。
+**同一个角色五集出现四张脸？**
+单张正面标准像锁不住。角色提示词要写侧面/背面特征（≥2 个视角），并显式写"无纹身、无多余装饰"；视频阶段挂"标准像 + 四视图"两张参考。
 
-**Q：需要后期配音吗？**
-
-默认不需要。Seedance 原生出声。后期配音只在对白翻车（吞字、多角色串音、临时改词）时兜底，见 `分镜优化与声音设计.md` §2.7。
-
-**Q：片子看起来"不动"——很多镜头都是一张画停在那里，为什么？**
-
-排太满了。15 秒塞 5 个时间拍、每拍 3-4 个动作，模型一个拍只能做完一个动作，剩下的时间就把同一姿势停住。实测一部 75 秒的片子有 **28 秒（37%）是静止重复画面**。
-
-两条硬预算：
-
-| 项 | 上限 |
-|---|---|
-| 时间拍数 | 4 拍 / 15 秒 |
-| 单拍主要动作 | 2 个 |
-| 单拍画面描述 | 70 字 |
-| 全集台词 | 25–35 字 |
-| 相邻拍景别 | 必须不同 |
-
-按**动作的物理时间**排秒数，不要按字数排：抓起碟子掼地 ≈2 秒，跪下磕头 ≈2 秒，切一刀 ≈1.5 秒。
-
-**Q：写"色块炸开""同心纹荡开"，出来什么都没有，怎么办？**
-
-Seedance 画不出抽象效果，只会给一团糊的粒子。必须翻译成"位置 + 颜色 + 形状 + 占比"：
-
-| ✗ | ✓ |
-|---|---|
-| 鼻血化成一片赭石色块向四周摊开 | 一道赭色血点溅在青石板上，占画面下三分之一，边缘硬、不渐变 |
-| 鎏金同心纹从耳门荡出去 | 郑屠耳侧出现三圈鎏金细线，一圈比一圈大，最外圈贴到画框 |
-
-**Q：同一个角色，五集里出现了四张不同的脸，怎么锁？**
-
-单张正面标准像锁不住。角色提示词要写侧面/背面特征（≥2 个视角），并显式写"无纹身/无多余装饰"——不然模型会自己加刺青、戒指。视频阶段可以同时挂"标准像 + 四视图"两张参考。
-
-**Q：银子被画成菜碗大的元宝，怎么避免？**
-
+**银子被画成菜碗大的元宝？**
 道具必须写尺寸参照："约拳头一半大""长一尺二寸，约等于小臂"。只写名词，模型按刻板印象画。
 
-**Q：出图/出视频前要检查什么？**
+**出图变成 3D / 有阴影渐变？**
+检查提示词结尾的狠命令还在不在；追加负面词：`不要阴影，不要渐变，不要3D渲染，不要体积光，不要写实照片`。
 
-两张自检表，写成中文列在 SKILL.md 文首「花钱前的两道自检」里，逐条自己过：
-
-- **出图前**：画幅与成片同比例、色盘没跑色、角色给了两个视角、道具写了尺寸参照、分镜点到的资产都有提示词
-- **出视频前**：一拍不超过两件事、写的是动作不是状态、相邻拍换了景别、没写抽象效果、台词六项齐全
-
-再补一步：**先只出 3 张图**（主角/主场景/关键道具），逐张看过造型、道具尺度、有无文字水印，再放量。
-
-> 曾经做过 Python 脚本去"自动检查"这些，已经删掉了。中文的"这一拍塞了几个动作""这句写的是状态还是动作"，正则判不准，机器打勾只会造出一个假的通过标准。判断交给写的人。
-
-**Q：出图变成 3D/有阴影渐变怎么办？**
-检查提示词结尾的两句狠命令是不是被删了；还不行就追加负面词：`不要阴影，不要渐变，不要3D渲染，不要体积光，不要写实照片`。
-
-**Q：每集多长？多少集合适？**
-每集 15 秒。故事紧凑用 5 集（75 秒），完整叙事 10-20 集。
-
-**Q：为什么提示词都是中文？**
-默认面向即梦/Seedream/豆包等中文平台。用 Midjourney 时换素材清单里保留的英文对照版风格块即可。
-
-**Q：可以不用上美影风格吗？**
-这个 skill 就是为上美影而生的，风格是立身之本。其他风格请用通用视频制作流程。
+**需要后期配音吗？**
+默认不需要。只有模型吞字、多角色串音、必须改词时才兜底，见 `references/分镜优化与声音设计.md`。
 
 ## 文件说明
 
 ```
 smy-seedance-storyboard/
-├── SKILL.md                      # 主流程（给 AI 看的工作说明书）
-├── README.md                     # 本文件（给人看的入门指南）
-└── references/                   # 细则手册（按需查阅）
-    ├── 上美影风格指南.md          # ★ 核心：风格块/色盘/造型规范/模板/翻车修复
-    ├── seedance-manual.md        # Seedance 2.0 平台手册（含模板十七）
-    ├── 好剧本.md                  # 剧本质量标准与示例
-    ├── 故事转视频脚本-转换工具.md  # 故事改编模板
-    ├── 优化分镜.md                # 提示词优化公式
-    ├── 分镜优化与声音设计.md       # ★ 原生对白写法（§2.0）/ 修图 / 音效
-    └── 上美影原始提示词.txt        # 最初一批实测提示词（溯源用）
+├── SKILL.md                          # 主流程（给 AI 的工作说明书）
+├── README.md                         # 本文件（给人看的入门）
+└── references/
+    ├── 上美影风格指南.md              # ★ 风格唯一权威：风格块/色盘/造型/模板/子风格
+    ├── 分镜优化与声音设计.md           # ★ 原生对白写法/音效/抽帧修补/兜底配音
+    ├── seedance-manual.md            # Seedance 2.0 平台手册
+    ├── 好剧本.md                      # 剧本质量标准
+    ├── 故事转视频脚本-转换工具.md      # 故事改编模板
+    ├── 优化分镜.md                    # 分镜提示词公式
+    └── 上美影原始提示词.txt           # 风格溯源素材
 ```
 
+## English overview
 
-
-项目首发于linux.do社区，感谢佬友认同： https://linux.do
-
-
-
-## Repository Overview
-
-This is a Chinese-language repository for **上美影风格（Shanghai Animation Film Studio vintage hand-drawn animation style）AI short-drama production**, combining Claude Code (script and storyboard generation), Midjourney / GPT-Image-2 / Seedream / Nano Banana Pro (asset generation), and Seedance 2.0 (video generation). The workflow transforms stories, myths, and novels into multi-episode AI video series with consistent 上美影 visual style (ink wash + gouache texture, traditional mineral pigment colors, bold simplified contours, film grain) and character design.
-
-## Core Workflow
-
-The production process follows these steps:
-
-1. **Script Development** - Converting source material into four-act structure scripts (说书人旁白体制 recommended)
-2. **色盘声明 (Palette Declaration)** - Declaring the crew palette string (主四色 + 0-2 扩展色), quoted verbatim by all asset and storyboard prompts
-3. **Asset Generation Plan** - Creating numbered prompts for characters (C01-C99), scenes (S01-S99), beasts (C-numbered, beast scene template), and props (P01-P99), all carrying the 上美影 style block
-4. **Image Generation** - Using Midjourney / GPT-Image-2 / Seedream / Nano Banana Pro to generate visual assets with the unified 上美影 style block prefix
-5. **Storyboard Script Generation** - Creating Seedance 2.0 prompts in time-axis format (0-3s, 3-6s, 6-9s, 9-12s, 12-15s), first line = fixed 上美影 style line + palette
-6. **Video Generation** - Using Seedance 2.0 platform with video extension feature for episode chaining
- 
-## Key File Patterns
-
-- `[Title]_剧本.md` - Four-act script with episode breakdown (起承转合 structure)
-- `[Title]_素材清单.md` - Numbered asset generation prompts with English style prefixes
-- `[Title]_E[XX]_分镜.md` - Individual episode storyboard scripts for Seedance 2.0
-
-## Asset Numbering Convention
-
-| Prefix | Range | Type | Example |
-|--------|-------|------|---------|
-| C | C01-C99 | Characters (multiple angles per character) | C01 林冲·正面全身 |
-| S | S01-S99 | Scenes/Locations | S01 沧州草料场·雪景 |
-| P | P01-P99 | Props/Objects | P01 长枪 |
-
-## Seedance 2.0 Prompt Structure
-
-Each episode script contains:
-
-1. **素材上传清单** - Table mapping asset IDs to upload slots
-2. **Seedance Prompt** - Time-axis format description:
-   - Style and atmosphere specification
-   - 0-3s: Scene establishment
-   - 3-6s: Subject introduction
-   - 6-9s: Development/conflict
-   - 9-12s: Climax/transition
-   - 12-15s: Conclusion
-   - **Sound design — dialogue is MANDATORY**：`【声音】` 段必须含"人物开口说话"总述 + 逐条台词（时间码 / 说话人 / 语气 / 同期声或画外音 / 逐字台词）。Seedance 2.0 原生生成对白语音与口型，**绝不可写"只生成音效"**——那样每个角色都会闭嘴。开跑前逐条自己核一遍。
-   - Asset references (@图片X syntax)
-3. **尾帧描述** - Final frame description for next episode continuity
-
-## Video Extension (Episode Chaining)
-
-For episodes 2+, use video extension to maintain continuity:
-- Upload previous episode video as @视频1
-- Start prompt with: `将@视频1延长15s`
-- This creates seamless transitions between episodes
-
-## Style Consistency
-
-**单一事实来源**：`.claude/skills/smy-seedance-storyboard/references/上美影风格指南.md` defines the complete 上美影 style system (style blocks, hard constraint layer, negative prompts, palette, character design rules, asset templates). **All asset prompts are written in Chinese by default** (即梦/Seedream native); they begin with the unified CN style block and END with the CN hard constraint (实测：防止渐变/阴影/3D体积漂移). Default block:
-```
-上美影风格（上海美术电影制片厂复古手绘动画），中国传统手绘二维动画，传统矿物颜料纯平涂色块，大胆概括的轮廓线，带手工感的不完美笔触轮廓，装饰性平面背景纹样，模拟动画胶片颗粒感，浓郁的中国幻想美学，主色：[本剧色盘中文]。必须纯2D平涂！绝对不要阴影、不要渐变、不要3D体积感！必须大面积留白！
-```
-English counterpart (optional, Midjourney / GPT-Image only):
-```
-vintage Shanghai Animation Film Studio aesthetic, traditional Chinese hand-drawn 2D animation, flat color fields in traditional mineral pigment colors, bold and simplified contours, imperfect hand-drawn brushstroke outlines, decorative flat background patterns, simulated animated film grain, rich Chinese fantasy aesthetics, [本剧色盘英文], ultra-detailed, 8K. CRITICAL: 2D FLAT COLORS ONLY. ABSOLUTELY NO SHADING, NO GRADIENTS, NO 3D VOLUME. Vast empty negative space is MANDATORY.
-```
-Seedance video prompt first line (精简版):
-```
-上海美术电影制片厂经典手绘动画风格，手绘墨线轮廓，水粉平涂上色、保留颜料笔触与手工感，矿物颜料色（[本剧主色简写]），概括造型，胶片颗粒感，不要3D渲染、不要写实感、不要体积光
-```
-
-Character differentiation uses distinct color schemes (专属主色) and traditional decorative patterns (专属纹样), plus 怪色点缀 accents (muted red / dusty pink / gold brown, small areas only). Character proportions follow 上美影 rules (adults 5-7 heads tall, children 3-4, beasts exaggerated), NOT the realistic 二八比例. Lighting is expressed as 色块对比 (juxtaposed flat color fields), never as volumetric/soft lighting words.
-
-**禁用词**：photorealistic、皮肤纹理、二八比例、anime、cel-shading、赛璐珞，以及 soft glow / bloom / volumetric lighting / airbrush / 渐变 / 晕染 / 色晕 / 柔光（破坏纯平涂）。
-
-**动画风格红利**：上美影手绘动画风格天然规避写实真人脸部素材的审核限制。
-
-## Important Constraints
-
-- **Max 9 images** per Seedance 2.0 generation
-- **Max 3 videos** (total 15s) as reference
-- **Sensitive words** may cause generation failures (e.g., "江湖人士")
-- **Video editing** capability is limited - regeneration required for most changes
-- **Instruction following** can be inconsistent with complex prompts (300+ words)
-
-## Camera Movement Keywords (Chinese)
-
-- 推镜头/拉镜头 (Push/Pull)
-- 摇镜头 (Pan)
-- 移镜头 (Truck)
-- 跟镜头 (Follow)
-- 环绕镜头/360度旋转 (Orbit/360°)
-- 升降镜头 (Crane)
-- 希区柯克变焦 (Hitchcock zoom)
-- 一镜到底 (One shot)
-- 手持晃动 (Handheld shake)
-
-## Skill Usage
-
-Invoke the custom skill for 上美影风格 video script generation:
-```
-/skill smy-seedance-storyboard
-```
-
-The skill handles: story analysis, four-act script structure (说书人旁白体制), palette declaration, asset planning with 上美影 templates, and Seedance 2.0 formatted prompts with fixed style line.
-
-## Reference Documentation
-
-- `.claude/skills/smy-seedance-storyboard/SKILL.md` - Skill definition and workflow (上美影风格版)
-- `.claude/skills/smy-seedance-storyboard/references/上美影风格指南.md` - **上美影风格单一事实来源**（风格块/色盘/造型规范/资产模板/子风格模块）
-- `.claude/skills/smy-seedance-storyboard/references/上美影原始提示词.txt` - 原始实测提示词素材（山海经5条+水浒3条成品示例）
-- `.claude/skills/smy-seedance-storyboard/references/seedance-manual.md` - Complete Seedance 2.0 manual (含模板十七：上美影国风动画类)
-- `.claude/skills/smy-seedance-storyboard/references/故事转视频脚本-转换工具.md` - Story adaptation template
+A Chinese-language skill for producing **Shanghai Animation Film Studio–style AI short dramas** on Seedance 2.0: script → palette → asset prompts → time-axis storyboard prompts. Visual rules (style block, mineral-pigment palette, character design, asset templates) live in `references/上美影风格指南.md` as the single source of truth. Dialogue is generated natively by Seedance — lines must be written verbatim into the `【声音】` section, never delegated to post-dubbing. Episode budget: 15s / 4 beats / 25-35 characters of dialogue.
